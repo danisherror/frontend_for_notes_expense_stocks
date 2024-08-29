@@ -15,7 +15,6 @@ const SignIn: React.FC = () => {
   const storeTokenInLS = useAuth();
 
   const setdata = (e) => {
-    console.log(e.target.value);
     const { name, value } = e.target;
 
     setINP((preval) => {
@@ -28,20 +27,15 @@ const SignIn: React.FC = () => {
 
   const addinpdata = async (e) => {
     e.preventDefault();
-    console.log(inpval);
     const { email, password } = inpval;
-    console.log(typeof(email))
-    console.log(typeof(password))
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/signin', {
         email:email,
         password:password
       });
       if (response.status === 200) {
-        console.log(response.data);
         storeTokenInLS(response.data.access_token);
         alert("Signin successful!");
-        console.log("data added");
         navigate(`/`);
       } else {
         console.error("Error:", response.statusText);

@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+//###############################################################################
+//Notes
+import Create_Notes from "./Notes/Create_Notes"
 
+//###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -43,6 +47,17 @@ function App() {
             </>
           }
         />
+        {/* Notes */}
+        <Route
+          path="/notes/create_notes"
+          element={
+            <>
+              <PageTitle title="Create Notes Danisherror app" />
+              <Create_Notes />
+            </>
+          }
+        />
+        {/* Notes end*/}
         <Route
           path="/calendar"
           element={
