@@ -38,7 +38,8 @@ const SignIn: React.FC = () => {
         password:password
       });
       if (response.status === 200) {
-        storeTokenInLS(response.data.token);
+        console.log(response.data);
+        storeTokenInLS(response.data.access_token);
         alert("Signin successful!");
         console.log("data added");
         navigate(`/`);

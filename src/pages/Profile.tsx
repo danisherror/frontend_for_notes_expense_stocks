@@ -1,9 +1,46 @@
+import { useEffect } from 'react';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import CoverOne from '../images/cover/cover-01.png';
 import userSix from '../images/user/user-06.png';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
+  const getToken = () => {
+    return localStorage.getItem('token');
+}
+const token = getToken();
+console.log(token)
+
+const getdata = async () => {
+  const res = await fetch(`http://127.0.0.1:8000/api/profile`, {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+      }
+  });
+
+  const data = await res.json();
+  console.log(data);
+  if (res.status === 404) {
+      alert("404 Error: Resource not found");
+      // Handle the error appropriately, e.g., display an error message to the user
+  }
+
+  if (res.status === 422 || !data) {
+      console.log("error ");
+
+  } else {
+      console.log("get data");
+  }
+}
+
+
+
+
+useEffect(() => {
+  getdata();
+}, [])
   return (
     <>
       <Breadcrumb pageName="Profile" />

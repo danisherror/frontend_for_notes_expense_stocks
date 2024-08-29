@@ -37,7 +37,8 @@ const SignUp: React.FC = () => {
         password:password
       });
       if (response.status === 200) {
-        storeTokenInLS(response.data.token);
+        console.log(response);
+        storeTokenInLS(response.data.access_token);
         alert("Signup successful!");
         console.log("data added");
         navigate(`/`);
