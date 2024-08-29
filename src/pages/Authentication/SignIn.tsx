@@ -1,10 +1,57 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Auth/Auth'
+import axios from 'axios';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 
 const SignIn: React.FC = () => {
+  const navigate = useNavigate();
+  const [inpval, setINP] = useState({
+    email: "",
+    password: ""
+  });
+  const storeTokenInLS = useAuth();
+
+  const setdata = (e) => {
+    console.log(e.target.value);
+    const { name, value } = e.target;
+
+    setINP((preval) => {
+      return {
+        ...preval,
+        [name]: value
+      }
+    });
+  }
+
+  const addinpdata = async (e) => {
+    e.preventDefault();
+    console.log(inpval);
+    const { email, password } = inpval;
+    console.log(typeof(email))
+    console.log(typeof(password))
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/signin', {
+        email:email,
+        password:password
+      });
+      if (response.status === 200) {
+        storeTokenInLS(response.data.token);
+        alert("Signin successful!");
+        console.log("data added");
+        navigate(`/`);
+      } else {
+        console.error("Error:", response.statusText);
+        alert("Signin failed. Please check your credentials.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
   return (
     <>
       <Breadcrumb pageName="Sign In" />
@@ -163,6 +210,8 @@ const SignIn: React.FC = () => {
                   <div className="relative">
                     <input
                       type="email"
+                      value={inpval.email} onChange={setdata}
+                      name="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
@@ -194,6 +243,9 @@ const SignIn: React.FC = () => {
                   <div className="relative">
                     <input
                       type="password"
+                      value={inpval.password}
+                      onChange={setdata}
+                      name="password"
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
@@ -222,15 +274,15 @@ const SignIn: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mb-5">
+                {/* <div className="mb-5">
                   <input
                     type="submit"
                     value="Sign In"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
-                </div>
+                </div> */}
 
-                <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
+                {/* <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
                   <span>
                     <svg
                       width="20"
@@ -265,7 +317,15 @@ const SignIn: React.FC = () => {
                     </svg>
                   </span>
                   Sign in with Google
-                </button>
+                </button> */}
+                <div className="mb-5">
+                  <input
+                    type="submit"
+                    value="Sign In"
+                    onClick={addinpdata}
+                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                  />
+                </div>
 
                 <div className="mt-6 text-center">
                   <p>
