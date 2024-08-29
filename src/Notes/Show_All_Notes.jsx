@@ -161,7 +161,7 @@ const Show_All_Notes = () => {
                                     </td> */}
 
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <NavLink to={`/edit_note/${note.id}`}>
+                                        <NavLink to={`/notes/edit_note/${note.id}`}>
                                             <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
                                             >
                                                 edit</button></NavLink>
