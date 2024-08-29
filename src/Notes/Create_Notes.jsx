@@ -40,12 +40,11 @@ const Create_Notes = () => {
         const data = await response.json();
 
         if (response.status === 200) {
-            alert("Complaint submitted successfully")
-            console.log("Complaint submitted successfully:", data);
+            alert("Notes created successfully")
             navigate('/');
             
         } else {
-            console.log("Error submitting Complaint");
+            console.log("Error submitting Notes");
             // Optionally, you can handle success actions here
         }
     };

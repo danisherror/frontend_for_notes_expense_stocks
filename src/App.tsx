@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 //###############################################################################
 //Notes
 import Create_Notes from "./Notes/Create_Notes"
+import Show_All_Notes from "./Notes/Show_All_Notes"
 
 //###############################################################################
 import Loader from './common/Loader';
@@ -54,6 +55,15 @@ function App() {
             <>
               <PageTitle title="Create Notes Danisherror app" />
               <Create_Notes />
+            </>
+          }
+        />
+        <Route
+          path="/notes/show_all_notes"
+          element={
+            <>
+              <PageTitle title="Show All Notes Danisherror app" />
+              <Show_All_Notes />
             </>
           }
         />
