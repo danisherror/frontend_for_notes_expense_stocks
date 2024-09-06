@@ -7,6 +7,9 @@ import Show_All_Notes from "./Notes/Show_All_Notes"
 import Edit_Notes from "./Notes/Edit_Notes"
 
 //###############################################################################
+// expenses
+import Create_Expenses from "./Expenses/Create_Expenses"
+//###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -78,6 +81,19 @@ function App() {
           }
         />
         {/* Notes end*/}
+
+        {/* Expense start*/}
+        <Route
+          path="/expenses/create_expenses"
+          element={
+            <>
+              <PageTitle title="Create expenses Danisherror app" />
+              <Create_Expenses />
+            </>
+          }
+        />
+
+        {/* Expense end*/}
         <Route
           path="/calendar"
           element={
