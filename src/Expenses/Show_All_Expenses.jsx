@@ -1,9 +1,9 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from 'react-router-dom'
-const Show_All_Notes = () => {
+const Show_All_Expenses = () => {
     const navigate = useNavigate();
-    const [notes, setNotes] = useState([]);
+    const [expenses, setexpenses] = useState([]);
     const getToken = () => {
         return localStorage.getItem('token');
     }
@@ -11,7 +11,7 @@ const Show_All_Notes = () => {
 
     const getdata = async () => {
 
-        const res = await fetch(`http://127.0.0.1:8000/api/notes`, {
+        const res = await fetch(`http://127.0.0.1:8000/api/expenses`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -21,22 +21,22 @@ const Show_All_Notes = () => {
 
         const data = await res.json();
         if (res.status === 200) {
-            setNotes(data)
+            setexpenses(data)
         }
         else {
             console.error("404 Error: Resource not found");
         }
     }
-    const deleteNote = async (id) => {
-        const data = notes.find(issue => issue.id === id);
-        if (data.status === "Closed") {
-            alert("This Note is already closed, cannot be deleted");
+    const deleteExpense = async (id) => {
+        const data = expenses.find(issue => issue.id === id);
+        if (data.status === true) {
+            alert("This expense is already closed, cannot be deleted");
         }
         else {
-            const confirmation = window.confirm("Are you sure you want to delete this Note?");
+            const confirmation = window.confirm("Are you sure you want to delete this expense?");
             if (confirmation) {
 
-                const res = await fetch(`http://127.0.0.1:8000/api/notes/${id}`, {
+                const res = await fetch(`http://127.0.0.1:8000/api/expenses/${id}`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const Show_All_Notes = () => {
                     }
                 });
                 if (res.status === 200) {
-                    alert("Note deleted successfully")
+                    alert("expense deleted successfully")
                     navigate('/');
                 }
                 else {
@@ -61,7 +61,7 @@ const Show_All_Notes = () => {
 
     return (
         <>
-            <Breadcrumb pageName="Room Complaints" />
+            <Breadcrumb pageName="Expenses" />
             <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
 
                 <div className="scroll-container" style={{ maxHeight: '500px', overflowY: 'scroll' }}>
@@ -69,22 +69,22 @@ const Show_All_Notes = () => {
                         <thead>
                             <tr className="bg-gray-2 text-left dark:bg-meta-4">
                                 <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                    Title
+                                    Amount
                                 </th>
                                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Content
+                                    Description
                                 </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    tags
+                                    Tags
                                 </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    folder
+                                    Split Between
                                 </th>
                                 <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                    status
+                                    Amount Given
                                 </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    priority
+                                    Status Done
                                 </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                                     created_at
@@ -101,67 +101,67 @@ const Show_All_Notes = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {notes.map((note, key) => (
+                            {expenses.map((expense, key) => (
                                 <tr key={key}>
 
                                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
-                                            {note.title}
+                                            {expense.amount}
                                         </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
-                                            {note.content}
+                                            {expense.description}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
-                                            {note.tags}
+                                            {expense.tags}
                                         </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
-                                            {note.folder}
+                                            {expense.split_amount}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
-                                            {note.status}
+                                            {expense.amount_given}
                                         </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
-                                            {note.priority}
+                                            {expense.status_done}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
-                                            {note.created_at}
+                                            {expense.created_at}
                                         </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
-                                            {note.last_modified}
+                                            {expense.last_modified}
                                         </p>
                                     </td>
 
 
                                     {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <p
-                                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${note.status === 'Pending'
+                                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${expense.status === 'Pending'
                                                 ? 'bg-danger text-danger'
                                                 :
                                                 'bg-success text-success'
 
                                                 }`}
                                         >
-                                            {note.status}
+                                            {expense.status}
                                         </p>
 
                                     </td> */}
 
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <NavLink to={`/notes/edit_note/${note.id}`}>
+                                        <NavLink to={`/expenses/edit_expense/${expense.id}`}>
                                             <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
                                             >
                                                 edit</button></NavLink>
@@ -169,7 +169,7 @@ const Show_All_Notes = () => {
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
 
                                         <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
-                                            onClick={() => deleteNote(note.id)}
+                                            onClick={() => deleteExpense(expense.id)}
                                         >
                                             Delete</button>
                                     </td>
@@ -183,4 +183,4 @@ const Show_All_Notes = () => {
     );
 };
 
-export default Show_All_Notes;
+export default Show_All_Expenses;
