@@ -9,6 +9,7 @@ import Edit_Notes from "./Notes/Edit_Notes"
 //###############################################################################
 // expenses
 import Create_Expenses from "./Expenses/Create_Expenses"
+import Show_All_Expenses from "./Expenses/Show_All_Expenses"
 //###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -89,6 +90,15 @@ function App() {
             <>
               <PageTitle title="Create expenses Danisherror app" />
               <Create_Expenses />
+            </>
+          }
+        />
+         <Route
+          path="/expenses/show_all_expenses"
+          element={
+            <>
+              <PageTitle title="Show All Expenses Danisherror app" />
+              <Show_All_Expenses />
             </>
           }
         />
