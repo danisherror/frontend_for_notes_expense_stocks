@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom'
 const Create_Expense = () => {
     const [amount, setAmount] = useState(0);
     const [description, setDescription] = useState("");
-    const [amount_given, setAmountgiven] = useState(false);
-    const [status_done, setStatus] = useState(false);
+    const [amount_given, setAmountgiven] = useState("false");
+    const [status_done, setStatus] = useState("false");
     const [tag, setTag] = useState("");
     const [split_amount, setSplitamountbw] = useState("");
     const navigate = useNavigate();
@@ -21,6 +21,22 @@ const Create_Expense = () => {
         const tags = parseCommaSeparatedString(tag)
         const split_amounts = parseCommaSeparatedString(split_amount)
         const token = localStorage.getItem('token');
+        let given_amount= false
+        if (amount_given=="false"){
+            given_amount=false
+        }
+        else
+        {
+            given_amount=true
+        }
+        let done_status= false
+        if (status_done=="false"){
+            done_status=false
+        }
+        else
+        {
+            done_status=true
+        }
         const response = await fetch(`http://127.0.0.1:8000/api/expenses`, {
             method: "POST",
             headers: {
@@ -28,12 +44,12 @@ const Create_Expense = () => {
                 "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
-                "amount": amount,
-                "description": description,
-                "tags": tags,
-                "split_amount":split_amounts,
-                "amount_given": amount_given,
-                "status_done": status_done
+                amount: amount,
+                description: description,
+                tags: tags,
+                split_amount:split_amounts,
+                amount_given: given_amount,
+                status_done: done_status
             }),
         });
         const data = await response.json();
@@ -106,7 +122,7 @@ const Create_Expense = () => {
                                 style={{ width: "100%", padding: "10px" }}
                             >
                                 <option value="true">True</option>
-                                <option value="False">False</option>
+                                <option value="false">False</option>
                                 {/* Add more options as needed */}
                             </select>
                         </div>
@@ -122,7 +138,7 @@ const Create_Expense = () => {
                                 style={{ width: "100%", padding: "10px" }}
                             >
                                 <option value="true">True</option>
-                                <option value="False">False</option>
+                                <option value="false">False</option>
                                 {/* Add more options as needed */}
                             </select>
                         </div>
