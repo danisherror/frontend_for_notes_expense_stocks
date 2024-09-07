@@ -21,22 +21,22 @@ const Create_Expense = () => {
         const tags = parseCommaSeparatedString(tag)
         const split_amounts = parseCommaSeparatedString(split_amount)
         const token = localStorage.getItem('token');
-        let given_amount= false
-        if (amount_given=="false"){
-            given_amount=false
-        }
-        else
-        {
-            given_amount=true
-        }
-        let done_status= false
-        if (status_done=="false"){
-            done_status=false
-        }
-        else
-        {
-            done_status=true
-        }
+        // let given_amount= false
+        // if (amount_given=="false"){
+        //     given_amount=false
+        // }
+        // else
+        // {
+        //     given_amount=true
+        // }
+        // let done_status= false
+        // if (status_done=="false"){
+        //     done_status=false
+        // }
+        // else
+        // {
+        //     done_status=true
+        // }
         const response = await fetch(`http://127.0.0.1:8000/api/expenses`, {
             method: "POST",
             headers: {
@@ -48,8 +48,8 @@ const Create_Expense = () => {
                 description: description,
                 tags: tags,
                 split_amount:split_amounts,
-                amount_given: given_amount,
-                status_done: done_status
+                amount_given: amount_given,
+                status_done: status_done
             }),
         });
         const data = await response.json();
