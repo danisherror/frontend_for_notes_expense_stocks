@@ -389,7 +389,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Create expenses
+                              Create Expenses
                             </NavLink>
                           </li>
                           <li>
@@ -400,7 +400,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Show Notes
+                              Show Expenses
                             </NavLink>
                           </li>
                         </ul>
