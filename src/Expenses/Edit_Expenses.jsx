@@ -39,7 +39,6 @@ const Edit_Expenses = () => {
     const submit_expense = async () => {
         const tags = parseCommaSeparatedString(tag)
         const split_amounts = parseCommaSeparatedString(split_amount)
-        console.log(expense_id)
         const response = await fetch(`http://127.0.0.1:8000/api/expenses/${expense_id}`, {
             method: "PUT",
             headers: {
