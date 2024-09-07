@@ -14,6 +14,7 @@ import Edit_Expenses from "./Expenses/Edit_Expenses"
 //###############################################################################
 //Transaction
 import Create_Transactions from "./Transactions/Create_Transactions"
+import Show_All_Transactions from "./Transactions/Show_All_Transactions"
 //###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -124,6 +125,15 @@ function App() {
             <>
               <PageTitle title="Create transactions Danisherror app" />
               <Create_Transactions />
+            </>
+          }
+        />
+        <Route
+          path="/transactions/show_all_transactions"
+          element={
+            <>
+              <PageTitle title="Show All Transactions Danisherror app" />
+              <Show_All_Transactions />
             </>
           }
         />
