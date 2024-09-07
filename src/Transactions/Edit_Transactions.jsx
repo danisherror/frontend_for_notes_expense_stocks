@@ -1,15 +1,20 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate ,useParams} from 'react-router-dom'
 
-const Create_Transactions = () => {
+const Edit_Transactions = () => {
+
+    const { transaction_id } = useParams();
+
     const [ammount, setAmmount] = useState(0);
     const [description, setDescription] = useState("");
-    const [transaction_type, setTransactionType] = useState("UPI");
-    const [status_done, setStatusDone] = useState("false");
-    const [second_party, setSecondParty] = useState("Unknown");
-    const [transaction_date, setTransactionDate] = useState("UPI");
+    const [transaction_type, setTransactionType] = useState("");
+    const [status_done, setStatusDone] = useState("");
+    const [second_party, setSecondParty] = useState("");
+    const [transaction_date, setTransactionDate] = useState("");
     const [tag, setTag] = useState("");
+    const [created_at, setCreated_at] = useState("");
+    const [last_modified, setLast_modified] = useState("");
     const navigate = useNavigate();
     const parseCommaSeparatedString = (inputString) => {
         return inputString
@@ -17,17 +22,24 @@ const Create_Transactions = () => {
             .map(item => item.trim())
             .filter(item => item !== '');
     };
+    const convertToISOString = (dateString) => {
+        const date = new Date(dateString);
+        console.log(date)
+        console.log(date.toISOString())
+        return date.toISOString();
+      };
     const handleInputChange = (event) => {
         const inputDateTime = new Date(event.target.value);
         const formattedDateTime = inputDateTime.toISOString();
         setTransactionDate(formattedDateTime);
       };
+    const token = localStorage.getItem('token');
     const submitFeedback = async (e) => {
         e.preventDefault();
         const tags = parseCommaSeparatedString(tag)
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://127.0.0.1:8000/api/transactions`, {
-            method: "POST",
+        
+        const response = await fetch(`http://127.0.0.1:8000/api/transactions/${transaction_id}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
@@ -49,14 +61,42 @@ const Create_Transactions = () => {
             navigate('/');
 
         } else {
-            console.log("Error submitting Transaction");
+            alert("Error submitting Transaction");
             // Optionally, you can handle success actions here
         }
     };
+    const get_transaction_data = async () => {
+        const res = await fetch(`http://127.0.0.1:8000/api/transactions/${transaction_id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (res.status === 200) {
+            const data = await res.json();
+            setAmmount(data.amount);
+            setDescription(data.description);
+            setTag(data.tags.join(', ')); // Convert array to a comma-separated string for input
+            setTransactionType(data.transaction_type);
+            setTransactionDate(convertToISOString(data.transaction_date));
+            setStatusDone(data.status_done);
+            setSecondParty(data.second_party);
+            setCreated_at(data.created_at);
+            setLast_modified(data.last_modified);
+        } else {
+            console.error("Error fetching expenses data");
+        }
+    };
+
+    useEffect(() => {
+        get_transaction_data();
+    }, []);
 
     return (
         <>
-            <Breadcrumb pageName="Create Transaction" />
+            <Breadcrumb pageName="Edit Transaction" />
 
             <div className="grid grid-cols-1 gap-9 sm:grid-cols-1">
 
@@ -77,8 +117,32 @@ const Create_Transactions = () => {
                             />
                         </div>
                         <div>
+                            <label className="mb-3 block font-medium text-black dark:text-white">
+                                Creation Time
+                            </label>
+                            <input
+                                type="text"
+                                value={created_at}
+                                placeholder="Disabled label"
+                                disabled
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary dark:disabled:bg-black"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-3 block font-medium text-black dark:text-white">
+                                Last Modified Time
+                            </label>
+                            <input
+                                type="text"
+                                value={last_modified}
+                                placeholder="Disabled label"
+                                disabled
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary dark:disabled:bg-black"
+                            />
+                        </div>
+                        <div>
                             <label className="mb-3 block text-black dark:text-white">
-                           Date of Transaction
+                           Date of Transaction {transaction_date}
                             </label>
                             <input
                                 type="datetime-local"
@@ -114,7 +178,7 @@ const Create_Transactions = () => {
                         </div>
                         <div>
                             <label className="mb-3 block text-black dark:text-white">
-                                Status of Transactions
+                                Status of Transaction
                             </label>
                             <select
                                 value={status_done}
@@ -180,4 +244,4 @@ const Create_Transactions = () => {
     );
 };
 
-export default Create_Transactions;
+export default Edit_Transactions;
