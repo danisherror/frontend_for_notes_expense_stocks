@@ -29,7 +29,7 @@ const Show_All_Expenses = () => {
     }
     const deleteExpense = async (id) => {
         const data = expenses.find(issue => issue.id === id);
-        if (data.status === true) {
+        if (data.status_done === true) {
             alert("This expense is already closed, cannot be deleted");
         }
         else {
