@@ -2,47 +2,52 @@ import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 
-const Create_Notes = () => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-    const [folder, setFolder] = useState("Untitled");
-    const [status, setStatus] = useState("Incomplete");
-    const [priority, setPriority] = useState("Low");
+const Create_Transactions = () => {
+    const [ammount, setAmmount] = useState(0);
+    const [description, setDescription] = useState("");
+    const [transaction_type, setTransactionType] = useState("UPI");
+    const [status_done, setStatusDone] = useState("False");
+    const [second_party, setSecondParty] = useState("Unknown");
+    const [transaction_date, setTransactionDate] = useState("UPI");
     const [tag, setTag] = useState("");
     const navigate = useNavigate();
     const parseCommaSeparatedString = (inputString) => {
         return inputString
-          .split(',')
-          .map(item => item.trim())
-          .filter(item => item !== '');
+            .split(',')
+            .map(item => item.trim())
+            .filter(item => item !== '');
+    };
+    const handleInputChange = (event) => {
+        const inputDateTime = new Date(event.target.value);
+        const formattedDateTime = inputDateTime.toISOString();
+        setDateTime(formattedDateTime);
       };
     const submitFeedback = async (e) => {
         e.preventDefault();
-        const tags=parseCommaSeparatedString(tag)
+        const tags = parseCommaSeparatedString(tag)
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://127.0.0.1:8000/api/notes`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/transactions`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
-                title: title,
-                content: content,
-                tags: tags,
-                folder: folder,
-                status: status,
-                priority:priority ,
-                created_at: "2024-08-29T10:02:08.460Z",
-                last_modified: "2024-08-29T10:02:08.460Z"
-              }),
+                "amount": ammount,
+                "description": description,
+                "tags": tags,
+                "transaction_type": transaction_type,
+                "transaction_date": transaction_date,
+                "status_done": status_done,
+                "second_party": second_party
+            }),
         });
         const data = await response.json();
 
         if (response.status === 200) {
             alert("Notes created successfully")
             navigate('/');
-            
+
         } else {
             console.log("Error submitting Notes");
             // Optionally, you can handle success actions here
@@ -51,7 +56,7 @@ const Create_Notes = () => {
 
     return (
         <>
-            <Breadcrumb pageName="Create Note" />
+            <Breadcrumb pageName="Create Transaction" />
 
             <div className="grid grid-cols-1 gap-9 sm:grid-cols-1">
 
@@ -167,4 +172,4 @@ const Create_Notes = () => {
     );
 };
 
-export default Create_Notes;
+export default Create_Transactions;
