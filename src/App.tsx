@@ -12,6 +12,9 @@ import Create_Expenses from "./Expenses/Create_Expenses"
 import Show_All_Expenses from "./Expenses/Show_All_Expenses"
 import Edit_Expenses from "./Expenses/Edit_Expenses"
 //###############################################################################
+//Transaction
+import Create_Transactions from "./Transactions/Create_Transactions"
+//###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -114,6 +117,18 @@ function App() {
         />
 
         {/* Expense end*/}
+        {/* Transaction start*/}
+        <Route
+          path="/transactions/create_transactions"
+          element={
+            <>
+              <PageTitle title="Create transactions Danisherror app" />
+              <Create_Transactions />
+            </>
+          }
+        />
+
+        {/* Transaction end*/}
         <Route
           path="/calendar"
           element={

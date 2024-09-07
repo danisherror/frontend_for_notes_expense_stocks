@@ -6,7 +6,7 @@ const Create_Transactions = () => {
     const [ammount, setAmmount] = useState(0);
     const [description, setDescription] = useState("");
     const [transaction_type, setTransactionType] = useState("UPI");
-    const [status_done, setStatusDone] = useState("False");
+    const [status_done, setStatusDone] = useState("false");
     const [second_party, setSecondParty] = useState("Unknown");
     const [transaction_date, setTransactionDate] = useState("UPI");
     const [tag, setTag] = useState("");
@@ -20,7 +20,7 @@ const Create_Transactions = () => {
     const handleInputChange = (event) => {
         const inputDateTime = new Date(event.target.value);
         const formattedDateTime = inputDateTime.toISOString();
-        setDateTime(formattedDateTime);
+        setTransactionDate(formattedDateTime);
       };
     const submitFeedback = async (e) => {
         e.preventDefault();
@@ -66,25 +66,37 @@ const Create_Transactions = () => {
                     <div className="flex flex-col gap-5.5 p-6.5">
                         <div>
                             <label className="mb-3 block text-black dark:text-white">
-                                Title of the Note
+                               Amount of transaction in INT
                             </label>
                             <input
                                 type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                placeholder="Write Title of the Note"
+                                value={ammount}
+                                onChange={(e) => setAmmount(e.target.value)}
+                                placeholder="write Amount of the transaction"
                                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
                         </div>
                         <div>
                             <label className="mb-3 block text-black dark:text-white">
-                                Folder
+                           Date of Transaction
+                            </label>
+                            <input
+                                type="datetime-local"
+                                id="datetime"
+                                onChange={handleInputChange}
+                                placeholder="Time of the transaction"
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                        </div>
+                        <div>
+                            <label className="mb-3 block text-black dark:text-white">
+                            Second Party
                             </label>
                             <input
                                 type="text"
-                                value={folder}
-                                onChange={(e) => setFolder(e.target.value)}
-                                placeholder="Name of the folder in which this note is to be created"
+                                value={second_party}
+                                onChange={(e) => setSecondParty(e.target.value)}
+                                placeholder="Name of the Second party in the transaction"
                                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
                         </div>
@@ -105,36 +117,32 @@ const Create_Transactions = () => {
                                 Status of Note
                             </label>
                             <select
-                                value={status}
-                                onChange={(e) => setStatus(e.target.value)}
+                                value={status_done}
+                                onChange={(e) => setStatusDone(e.target.value)}
                                 className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
 
                                 style={{ width: "100%", padding: "10px" }}
                             >
-                                <option value="Incomplete">Incomplete</option>
-                                <option value="Under Process">Under Process</option>
-                                <option value="Partially complete">Partially complete</option>
-                                <option value="Done">Done</option>
-                                <option value="Important">Important</option>
-                                <option value="Others">Others</option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
                                 {/* Add more options as needed */}
                             </select>
                         </div>
                         <div>
                             <label className="mb-3 block text-black dark:text-white">
-                                Priority of Note
+                            Transaction Type
                             </label>
                             <select
-                                value={priority}
-                                onChange={(e) => setPriority(e.target.value)}
+                                value={transaction_type}
+                                onChange={(e) => setTransactionType(e.target.value)}
                                 className="form-datepicker w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
 
                                 style={{ width: "100%", padding: "10px" }}
                             >
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                                <option value="Don't Know">Don't Know</option>
+                                <option value="UPI">UPI</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Bank to Bank">Bank to Bank</option>
+                                <option value="Lending Money">Lending Money</option>
                                 <option value="Others">Others</option>
                                 {/* Add more options as needed */}
                             </select>
@@ -143,13 +151,13 @@ const Create_Transactions = () => {
                         <div >
                             {/*<div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark"> */}
                             <label className="mb-3 block text-black dark:text-white">
-                                Content
+                            description
                             </label>
                             <textarea
                                 rows={6}
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                                placeholder="Write content of Notes herer"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder="Write Description of Notes herer"
                                 className="w-full rounded-lg border-[1.5px] border-primary bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input dark:text-white"
                             ></textarea>
                         </div>
