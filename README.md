@@ -15,56 +15,28 @@ frontend_for_notes_expense_stocks
 │  ├─ components/
 │  │  ├─ Breadcrumbs/
 │  │  │  └─ Breadcrumb.tsx
-│  │  ├─ Charts/
-│  │  │  ├─ ChartOne.tsx
-│  │  │  ├─ ChartThree.tsx
-│  │  │  └─ ChartTwo.tsx
-│  │  ├─ Chat/
-│  │  │  └─ ChatCard.tsx
-│  │  ├─ Checkboxes/
-│  │  │  ├─ CheckboxFive.tsx
-│  │  │  ├─ CheckboxFour.tsx
-│  │  │  ├─ CheckboxOne.tsx
-│  │  │  ├─ CheckboxThree.tsx
-│  │  │  └─ CheckboxTwo.tsx
+│  │  ├─ Charts/ (ignored)
+│  │  ├─ Chat/ (ignored)
+│  │  ├─ Checkboxes/ (ignored)
 │  │  ├─ Dropdowns/
 │  │  │  └─ DropdownDefault.tsx
 │  │  ├─ Forms/
-│  │  │  ├─ DatePicker/
-│  │  │  │  ├─ DatePickerOne.tsx
-│  │  │  │  └─ DatePickerTwo.tsx
-│  │  │  ├─ SelectGroup/
-│  │  │  │  ├─ SelectGroupOne.tsx
-│  │  │  │  └─ SelectGroupTwo.tsx
+│  │  │  ├─ DatePicker/ (ignored)
+│  │  │  ├─ SelectGroup/ (ignored)
 │  │  │  └─ MultiSelect.tsx
-│  │  ├─ Header/
-│  │  │  ├─ DarkModeSwitcher.tsx
-│  │  │  ├─ DropdownMessage.tsx
-│  │  │  ├─ DropdownNotification.tsx
-│  │  │  ├─ DropdownUser.tsx
-│  │  │  └─ index.tsx
-│  │  ├─ Maps/
-│  │  │  └─ MapOne.tsx
+│  │  ├─ Header/ (ignored)
+│  │  ├─ Maps/ (ignored)
 │  │  ├─ Sidebar/
 │  │  │  ├─ index.tsx
 │  │  │  └─ SidebarLinkGroup.tsx
-│  │  ├─ Switchers/
-│  │  │  ├─ SwitcherFour.tsx
-│  │  │  ├─ SwitcherOne.tsx
-│  │  │  ├─ SwitcherThree.tsx
-│  │  │  └─ SwitcherTwo.tsx
-│  │  ├─ Tables/
-│  │  │  ├─ TableOne.tsx
-│  │  │  ├─ TableThree.tsx
-│  │  │  └─ TableTwo.tsx
+│  │  ├─ Switchers/ (ignored)
+│  │  ├─ Tables/ (ignored)
 │  │  ├─ CardDataStats.tsx
 │  │  ├─ ClickOutside.tsx
 │  │  ├─ ModalSettings.tsx
 │  │  ├─ PageTitle.tsx
 │  │  └─ TableSettings.tsx
-│  ├─ css/
-│  │  ├─ satoshi.css
-│  │  └─ style.css
+│  ├─ css/ (ignored)
 │  ├─ Expenses/
 │  │  ├─ Create_Expenses.jsx
 │  │  ├─ Edit_Expenses.jsx
