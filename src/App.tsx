@@ -16,7 +16,9 @@ import Edit_Expenses from "./Expenses/Edit_Expenses"
 import Create_Transactions from "./Transactions/Create_Transactions"
 import Show_All_Transactions from "./Transactions/Show_All_Transactions"
 import Edit_Transactions from "./Transactions/Edit_Transactions"
-//##########################################################
+//###############################################################################
+// stock historical data
+import All_Historical_Data from './Stocks/Historical_Data/All_Historical_Data';
 //###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -150,6 +152,17 @@ function App() {
         />
 
         {/* Transaction end*/}
+        {/**/}
+        <Route
+          path= "/stocks/historical_data/all_historical_data/:symbol_id"
+          element={
+            <>
+              <PageTitle title="All historical data fo symbol Danisherror app" />
+              <All_Historical_Data />
+            </>
+          }
+        />
+        {/**/}
         <Route
           path="/calendar"
           element={
