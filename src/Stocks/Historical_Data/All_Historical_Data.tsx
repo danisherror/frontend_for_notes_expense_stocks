@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
@@ -94,6 +94,33 @@ const All_Historical_Data: React.FC = () => {
 
     return (
         <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
+            <Breadcrumb pageName="All Stock Data" />
+            <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
+                <div className="flex w-full max-w-55 justify-end">
+                    <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
+                        <NavLink to={`/stocks/historical_data/last_day_historical_data/${symbol_id}`}>
+                            <button className="rounded bg-white py-1 px-3 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark">
+                                Day
+                            </button>
+                        </NavLink>
+                        <NavLink to={`/stocks/historical_data/last_week_historical_data/${symbol_id}`}>
+                            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
+                                Week
+                            </button>
+                        </NavLink>
+                        <NavLink to={`/stocks/historical_data/last_month_historical_data/${symbol_id}`}>
+                            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
+                                Month
+                            </button>
+                        </NavLink>
+                        <NavLink to={`/stocks/historical_data/all_historical_data/${symbol_id}`}>
+                            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
+                                All
+                            </button>
+                        </NavLink>
+                    </div>
+                </div>
+            </div>
             <div>
                 <div id="All_Historical_Data" className="-ml-5">
                     <ReactApexChart
