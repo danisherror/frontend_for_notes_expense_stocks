@@ -22,6 +22,7 @@ import All_Historical_Data from './Stocks/Historical_Data/All_Historical_Data';
 import Last_Month_Historical_data from './Stocks/Historical_Data/Last_Month_Historical_Data';
 import Last_Week_Historical_data from './Stocks/Historical_Data/Last_Week_Historical_Data';
 import Last_Day_Historical_data from './Stocks/Historical_Data/Last_Day_Historical_Data';
+import All_Stocks_Names from './Stocks/Historical_Data/All_Stocks_Names';
 //###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -189,6 +190,15 @@ function App() {
             <>
               <PageTitle title="Last Day historical data fo symbol Danisherror app" />
               <Last_Day_Historical_data />
+            </>
+          }
+        />
+        <Route
+          path= "/stocks/historical_data/all_stocks_names"
+          element={
+            <>
+              <PageTitle title="Stock Names data fo symbol Danisherror app" />
+              <All_Stocks_Names />
             </>
           }
         />
