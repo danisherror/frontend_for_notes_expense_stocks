@@ -46,19 +46,6 @@ const All_Historical_Data: React.FC = () => {
                 const all_data = data.historical_data.map(item => item.Close);
                 const all_date = data.historical_data.map(item => item.Date);
 
-                let all_dates = data.historical_data.map(item => {
-                    const year = new Date(item.Date).getFullYear().toString();
-                    return year.slice(0, 4); // Get the first 4 characters of the year
-                });
-                let str = all_dates[0]
-                for (let i = 1; i < all_dates.length; i++) {
-                    if (all_dates[i] == str) {
-                        all_dates[i] = "";
-                    }
-                    else {
-                        str = all_dates[i];
-                    }
-                }
                 // Update chart series
                 setState({
                     series: [
@@ -74,7 +61,7 @@ const All_Historical_Data: React.FC = () => {
                     ...prevOptions,
                     xaxis: {
                         ...prevOptions.xaxis,
-                        categories: all_dates,
+                        categories: all_date,
                     },
                     yaxis: {
                         ...prevOptions.yaxis,
