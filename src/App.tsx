@@ -19,6 +19,9 @@ import Edit_Transactions from "./Transactions/Edit_Transactions"
 //###############################################################################
 // stock historical data
 import All_Historical_Data from './Stocks/Historical_Data/All_Historical_Data';
+import Last_Month_Historical_data from './Stocks/Historical_Data/Last_Month_Historical_Data';
+import Last_Week_Historical_data from './Stocks/Historical_Data/Last_Week_Historical_Data';
+import Last_Day_Historical_data from './Stocks/Historical_Data/Last_Day_Historical_Data';
 //###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -152,7 +155,7 @@ function App() {
         />
 
         {/* Transaction end*/}
-        {/**/}
+        {/*stock data of a particular stock start*/}
         <Route
           path= "/stocks/historical_data/all_historical_data/:symbol_id"
           element={
@@ -162,7 +165,34 @@ function App() {
             </>
           }
         />
-        {/**/}
+        <Route
+          path= "/stocks/historical_data/last_month_historical_data/:symbol_id"
+          element={
+            <>
+              <PageTitle title="Last Month historical data fo symbol Danisherror app" />
+              <Last_Month_Historical_data />
+            </>
+          }
+        />
+        <Route
+          path= "/stocks/historical_data/last_week_historical_data/:symbol_id"
+          element={
+            <>
+              <PageTitle title="Last week historical data fo symbol Danisherror app" />
+              <Last_Week_Historical_data />
+            </>
+          }
+        />
+        <Route
+          path= "/stocks/historical_data/last_day_historical_data/:symbol_id"
+          element={
+            <>
+              <PageTitle title="Last Day historical data fo symbol Danisherror app" />
+              <Last_Day_Historical_data />
+            </>
+          }
+        />
+        {/*stock data of a particular stock start*/}
         <Route
           path="/calendar"
           element={
