@@ -75,7 +75,7 @@
 // export default All_Stocks_Names;
 
 import React, { useState, useEffect } from "react";
-import {  NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 
 const All_Stocks_Names: React.FC = () => {
@@ -163,16 +163,7 @@ const All_Stocks_Names: React.FC = () => {
                                     Name
                                 </th>
                                 <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                    All Historical Data
-                                </th>
-                                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                    Last Month
-                                </th>
-                                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                    Last week
-                                </th>
-                                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                    Last Day
+                                    Stocks Graph
                                 </th>
                             </tr>
                         </thead>
@@ -186,29 +177,11 @@ const All_Stocks_Names: React.FC = () => {
                                             </h5>
                                         </td>
                                         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <NavLink to={`/stocks/historical_data/all_historical_data/${stock}`}>
-                                            <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
-                                            >
-                                                see</button></NavLink>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <NavLink to={`/stocks/historical_data/last_month_historical_data/${stock}`}>
-                                            <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
-                                            >
-                                                see</button></NavLink>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <NavLink to={`/stocks/historical_data/last_week_historical_data/${stock}`}>
-                                            <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
-                                            >
-                                                see</button></NavLink>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <NavLink to={`/stocks/historical_data/last_day_historical_data/${stock}`}>
-                                            <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
-                                            >
-                                                see</button></NavLink>
-                                    </td>
+                                            <NavLink to={`/stocks/historical_data/last_day_historical_data/${stock}`}>
+                                                <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
+                                                >
+                                                    see</button></NavLink>
+                                        </td>
                                     </tr>
                                 ))
                             ) : (
