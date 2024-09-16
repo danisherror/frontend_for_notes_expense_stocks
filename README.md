@@ -138,3 +138,21 @@ frontend_for_notes_expense_stocks
     - last modified
     - net profit
 - [ ] After that it will show the button of history, that will lead to history page that will show all the buy and sell stock history of that particular stocks.
+
+---
+# How to make the stock history page:
+---
+- [ ] Initilally it will show all the buy and sell records of stocks.
+- [ ] You can do the following things in this page:
+    - sort by stock symbol
+    - sort by sell or buy orders
+    - sort by creation date
+    - sort by last modified date
+    - sort by name of stock ascending or descending
+    - sort by price per unit
+    - sort by quantity
+
+---
+# Make a particular page for a stock
+---
+ 
