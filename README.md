@@ -106,3 +106,16 @@ frontend_for_notes_expense_stocks
 ├─ tsconfig.node.json
 └─ vite.config.js
 ```
+
+
+---
+# How to make the buy/sell stock pages:
+---
+- [ ] First make the form with the following fields:
+    - symbols
+    - Name
+    - timestamp
+    - price per unit
+    - quantity
+- [ ] `important` write in the top that the time and price should be accurate otherwise you will not get the correct analysis of your stocks
+- [ ] 
