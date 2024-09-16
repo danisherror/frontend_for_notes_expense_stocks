@@ -118,4 +118,4 @@ frontend_for_notes_expense_stocks
     - price per unit
     - quantity
 - [ ] `important` write in the top that the time and price should be accurate otherwise you will not get the correct analysis of your stocks
-- [ ] 
+- [ ] sf
