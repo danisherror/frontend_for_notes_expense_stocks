@@ -108,8 +108,11 @@ frontend_for_notes_expense_stocks
 ```
 
 
+
+# Things to do
+
 ---
-# How to make the buy/sell stock pages:
+## How to make the buy/sell stock pages:
 ---
 - [ ] First make the form with the following fields:
     - symbols
@@ -125,7 +128,7 @@ frontend_for_notes_expense_stocks
     -  Get the stock symbol from the URL using params only and doing the same thing as above.
 
 ---
-# How to show the user stocks dashboard:
+## How to show the user stocks dashboard:
 ---
 - [ ] Here we will show only the current stocks not the history of stocks(like buy and sell history).
 - [ ] it will be similar to the holding pages of groww.
@@ -140,7 +143,7 @@ frontend_for_notes_expense_stocks
 - [ ] After that it will show the button of history, that will lead to history page that will show all the buy and sell stock history of that particular stocks.
 
 ---
-# How to make the stock history page:
+## How to make the stock history page:
 ---
 - [ ] Initilally it will show all the buy and sell records of stocks.
 - [ ] You can do the following things in this page:
@@ -155,4 +158,11 @@ frontend_for_notes_expense_stocks
 ---
 # Make a particular page for a stock
 ---
- 
+- [ ] It will show the broad view of the stocks like:
+    - Historical graph of the stock
+    - Current value of the stock
+    - All the previous buy and sell orders
+    - Graph with combining of buy and sell orders.
+- [ ] Graph with combining of buy and sell orders:
+    - In this i will give select option on the top of the graph to select the buy or sell orders
+    - By selecting the option you can see what would have happened if you have done that thing (like if have buy or sell that stock on that particular time)
