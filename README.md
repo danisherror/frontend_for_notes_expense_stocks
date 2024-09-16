@@ -118,4 +118,23 @@ frontend_for_notes_expense_stocks
     - price per unit
     - quantity
 - [ ] `important` write in the top that the time and price should be accurate otherwise you will not get the correct analysis of your stocks
-- [ ] sf
+- [ ] Now in the symbol field, I try to choose only the stocks on which backed can produce stock data. This can be done by this:
+    - Make the api to get `all_stocks_name`
+    - After that do the select and option in frontend to select only one of these stocks only
+- [ ] Add the new column on the showing stocks names where it will do the following things:
+    -  Get the stock symbol from the URL using params only and doing the same thing as above.
+
+---
+# How to show the user stocks dashboard:
+---
+- [ ] Here we will show only the current stocks not the history of stocks(like buy and sell history).
+- [ ] it will be similar to the holding pages of groww.
+- [ ] It will show the following things:
+    - Stock symbols
+    - stock name
+    - Average price per unit
+    - number of units
+    - created at
+    - last modified
+    - net profit
+- [ ] After that it will show the button of history, that will lead to history page that will show all the buy and sell stock history of that particular stocks.
