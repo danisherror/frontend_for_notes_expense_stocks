@@ -1,11 +1,35 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from 'react-router-dom'
+import Model from 'react-modal'
+Model.setAppElement("#root");
 const Show_All_Notes = () => {
     const navigate = useNavigate();
     const [notes, setNotes] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedNote, setSelectedNote] = useState(null);
+    const openModal = (note) => {
+        setSelectedNote(note);
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setSelectedNote(null);
+        setIsModalOpen(false);
+    }
     const getToken = () => {
         return localStorage.getItem('token');
+    }
+    const changethebackgrounofthing = (thing) => {
+        switch (thing) {
+            case "Closed":
+                return "#ff9999";
+            case "Open":
+                return 'bg-primary text-primary';
+            case "In Progress":
+                return 'bg-success text-success';
+            default:
+                return 'bg-info text-info';
+        }
     }
     const token = getToken();
 
@@ -71,26 +95,8 @@ const Show_All_Notes = () => {
                                 <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
                                     Title
                                 </th>
-                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Content
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    tags
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    folder
-                                </th>
-                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                    status
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    priority
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    created_at
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    last_modified
+                                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                                    View
                                 </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                                     Edit
@@ -110,39 +116,11 @@ const Show_All_Notes = () => {
                                         </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {note.content}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">
-                                            {note.tags}
-                                        </h5>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {note.folder}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">
-                                            {note.status}
-                                        </h5>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {note.priority}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">
-                                            {note.created_at}
-                                        </h5>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {note.last_modified}
-                                        </p>
+
+                                        <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
+                                            onClick={() => openModal(note)}
+                                        >
+                                            View</button>
                                     </td>
 
 
@@ -177,6 +155,102 @@ const Show_All_Notes = () => {
                             ))}
                         </tbody>
                     </table>
+                    {selectedNote && (
+                        <Model
+                            isOpen={isModalOpen}
+                            onRequestClose={closeModal}
+                            contentLabel="Note Details"
+                            className="modal"
+                            overlayClassName="overlay"
+                        >
+                            <h2>
+                                {
+                                    selectedNote.title && selectedNote.title.length > 0 ? (
+                                        selectedNote.title
+                                    ) : (
+                                        <span>No Title available</span>
+                                    )}
+                            </h2>
+                            <div className='modelpopupbuttoncontainer'>
+                                <NavLink to={`/notes/edit_note/${selectedNote.id}`}>
+                                    <button
+                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
+                                        onClick={closeModal}
+                                        aria-label='edit'
+                                    >
+                                        Edit
+                                    </button>
+                                </NavLink>
+                                <button
+                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 mr-2"
+                                    onClick={closeModal}
+                                    aria-label='close'
+                                >
+                                    Close
+                                </button>
+                            </div>
+                            <div className='modelpopupscrollcountainer'>
+                                <div className='mpdelpopupcontentcontainer'>
+                                    <div className='modelpopupleft'>
+                                        <h1>
+                                            <span style={{ color: 'rgb(112,48,160)' }}>Description</span>
+                                        </h1>
+                                        <p>
+                                            {
+                                                selectedNote.description && selectedNote.description.length > 0 ? (
+                                                    selectedNote.description
+                                                ) : (
+                                                    <span>No Description available</span>
+                                                )}
+                                        </p>
+                                    </div>
+                                    <div className='modelpopupright'>
+                                        <table className='w-full'>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Status</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedNote.status && selectedNote.status.length > 0 ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedNote.status)}`}>
+                                                                    {selectedNote.status}
+                                                                </p>
+                                                            ) : (
+                                                                <span>No status Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Tags</strong></td>
+                                                    <td>
+                                                        {
+                                                            selectedNote.status && selectedNote.status.length > 0 ? (
+                                                                <ul>
+                                                                    {selectedNote.tags.map((tag, index) => (
+                                                                        <li key={index} className='inline-block mr-2 bg-grey-200 rounded-full px-2 py-1 text-sm'>
+                                                                            <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(tag)}`}>
+                                                                                {tag}
+                                                                            </p>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            ) : (
+                                                                <span>No status Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </Model>
+                    )}
                 </div>
             </div>
         </>
