@@ -197,8 +197,8 @@ const Show_All_Notes = () => {
                                         </h1>
                                         <p>
                                             {
-                                                selectedNote.description && selectedNote.description.length > 0 ? (
-                                                    selectedNote.description
+                                                selectedNote.content ? (
+                                                    selectedNote.content
                                                 ) : (
                                                     <span>No Description available</span>
                                                 )}
