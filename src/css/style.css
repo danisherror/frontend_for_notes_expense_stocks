@@ -217,7 +217,8 @@ span.flatpickr-weekday,
   background: white;
   padding: 1%;
   border-radius: 1%;
-  width: 75%;
+  width: 70%;
+  /* height: 85%; */  /*uncomment this line if you want a fixed size popup*/
   max-width: 75%;
   max-height: 85%;
   overflow: hidden;

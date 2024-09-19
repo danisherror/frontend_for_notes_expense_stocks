@@ -155,6 +155,8 @@ const Show_All_Notes = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div className='max-w-full overflow-x-auto'>
                     {selectedNote && (
                         <Model
                             isOpen={isModalOpen}
@@ -246,9 +248,6 @@ const Show_All_Notes = () => {
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </Model>
                     )}
                 </div>
