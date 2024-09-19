@@ -26,7 +26,13 @@ const Show_All_Notes = () => {
             case "Open":
                 return 'bg-primary text-primary';
             case "In Progress":
+                return 'bg-secondary text-secondary';
+            case "1":
                 return 'bg-success text-success';
+            case "2":
+                return 'bg-danger text-danger';
+            case "3":
+                return 'bg-warning text-warning';
             default:
                 return 'bg-info text-info';
         }
