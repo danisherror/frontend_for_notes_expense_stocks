@@ -1,9 +1,21 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from 'react-router-dom'
+import Model from 'react-modal'
+Model.setAppElement("#root");
 const Show_All_Transactions = () => {
     const navigate = useNavigate();
     const [transactions, setTransactions] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedTransactions, setSelectedTransactions] = useState(null);
+    const openModal = (transactions) => {
+        setSelectedTransactions(transactions);
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setSelectedTransactions(null);
+        setIsModalOpen(false);
+    }
     const getToken = () => {
         return localStorage.getItem('token');
     }
@@ -54,6 +66,47 @@ const Show_All_Transactions = () => {
         }
     }
 
+    const convertToAmPm = (dateString) => {
+        const date = new Date(dateString);
+
+        // Format the date to 'MM/DD/YYYY, hh:mm:ss AM/PM' format
+        const formattedDate = date.toLocaleString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true, // This ensures AM/PM format
+        });
+
+        return formattedDate;
+    };
+    const changethebackgrounofthing = (thing) => {
+        switch (thing) {
+            case "Closed":
+                return "#ff9999";
+            case true:
+                return 'bg-primary text-primary';
+            case false:
+                return 'bg-secondary text-secondary';
+            case "Open":
+                return 'bg-primary text-primary';
+            case "In Progress":
+                return 'bg-secondary text-secondary';
+            case "1":
+                return 'bg-success text-success';
+            case "2":
+                return 'bg-danger text-danger';
+            case "3":
+                return 'bg-warning text-warning';
+            case "Low":
+                return 'bg-secondary text-secondary';
+            default:
+                return 'bg-info text-info';
+        }
+    }
+
     useEffect(() => {
         getdata();
     }, [])
@@ -68,32 +121,11 @@ const Show_All_Transactions = () => {
                     <table className="w-full table-auto">
                         <thead>
                             <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                    Amount
-                                </th>
-                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Description
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Tags
-                                </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                                 Transaction Type
                                 </th>
-                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                Transaction Date
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Status Done
-                                </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                                     Second Party
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Created At
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Last Modified
                                 </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                                     Edit
@@ -107,21 +139,6 @@ const Show_All_Transactions = () => {
                             {transactions.map((transaction, key) => (
                                 <tr key={key}>
 
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">
-                                            {transaction.amount}
-                                        </h5>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {transaction.description}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">
-                                            {transaction.tags}
-                                        </h5>
-                                    </td>
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
                                             {transaction.transaction_type}
@@ -132,45 +149,11 @@ const Show_All_Transactions = () => {
                                             {transaction.transaction_date}
                                         </h5>
                                     </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {transaction.status_done ? (
-                                                <h5 className="font-medium text-black dark:text-white">True</h5>
-                                            ) : (
-                                                <h5 className="font-medium text-black dark:text-white">False</h5>
-                                            )}
-                                        </p>
-                                    </td>
                                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
                                             {transaction.second_party}
                                         </h5>
                                     </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">
-                                            {transaction.created_at}
-                                        </h5>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {transaction.last_modified}
-                                        </p>
-                                    </td>
-
-
-                                    {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p
-                                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${transaction.status === 'Pending'
-                                                ? 'bg-danger text-danger'
-                                                :
-                                                'bg-success text-success'
-
-                                                }`}
-                                        >
-                                            {transaction.status}
-                                        </p>
-
-                                    </td> */}
 
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <NavLink to={`/transactions/edit_transaction/${transaction.id}`}>
