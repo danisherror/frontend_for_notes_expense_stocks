@@ -1,9 +1,21 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import React, { useState, useEffect } from "react";
-import { useNavigate, NavLink } from 'react-router-dom'
+import { useNavigate, NavLink } from 'react-router-dom';
+import Model from 'react-modal'
+Model.setAppElement("#root");
 const Show_All_Expenses = () => {
     const navigate = useNavigate();
     const [expenses, setexpenses] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedExpenses, setSelectedExpenses] = useState(null);
+    const openModal = (expenses) => {
+        setSelectedExpenses(expenses);
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setSelectedExpenses(null);
+        setIsModalOpen(false);
+    }
     const getToken = () => {
         return localStorage.getItem('token');
     }
@@ -53,6 +65,46 @@ const Show_All_Expenses = () => {
             }
         }
     }
+    const convertToAmPm = (dateString) => {
+        const date = new Date(dateString);
+
+        // Format the date to 'MM/DD/YYYY, hh:mm:ss AM/PM' format
+        const formattedDate = date.toLocaleString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true, // This ensures AM/PM format
+        });
+
+        return formattedDate;
+    };
+    const changethebackgrounofthing = (thing) => {
+        switch (thing) {
+            case "Closed":
+                return "#ff9999";
+            case true:
+                return 'bg-primary text-primary';
+            case false:
+                return 'bg-secondary text-secondary';
+            case "Open":
+                return 'bg-primary text-primary';
+            case "In Progress":
+                return 'bg-secondary text-secondary';
+            case "1":
+                return 'bg-success text-success';
+            case "2":
+                return 'bg-danger text-danger';
+            case "3":
+                return 'bg-warning text-warning';
+            case "Low":
+                return 'bg-secondary text-secondary';
+            default:
+                return 'bg-info text-info';
+        }
+    }
 
     useEffect(() => {
         getdata();
@@ -68,29 +120,11 @@ const Show_All_Expenses = () => {
                     <table className="w-full table-auto">
                         <thead>
                             <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                    Amount
-                                </th>
-                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Description
-                                </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                                     Tags
                                 </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Split Between
-                                </th>
-                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Amount Given
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    Status Done
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    created_at
-                                </th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
-                                    last_modified
+                                <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                                    View
                                 </th>
                                 <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
                                     Edit
@@ -106,64 +140,16 @@ const Show_All_Expenses = () => {
 
                                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
-                                            {expense.amount}
-                                        </h5>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {expense.description}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">
                                             {expense.tags}
                                         </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {expense.split_amount}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                            {expense.amount_given ? (
-                                                <h5 className="font-medium text-black dark:text-white">True</h5>
-                                            ) : (
-                                                <h5 className="font-medium text-black dark:text-white">False</h5>
-                                            )}
-                                        
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                    {expense.status_done ? (
-                                                <h5 className="font-medium text-black dark:text-white">True</h5>
-                                            ) : (
-                                                <h5 className="font-medium text-black dark:text-white">False</h5>
-                                            )}
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">
-                                            {expense.created_at}
-                                        </h5>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">
-                                            {expense.last_modified}
-                                        </p>
-                                    </td>
 
-
-                                    {/* <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                        <p
-                                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium ${expense.status === 'Pending'
-                                                ? 'bg-danger text-danger'
-                                                :
-                                                'bg-success text-success'
-
-                                                }`}
+                                        <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
+                                            onClick={() => openModal(expense)}
                                         >
-                                            {expense.status}
-                                        </p>
-
-                                    </td> */}
+                                            View</button>
+                                    </td>
 
                                     <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <NavLink to={`/expenses/edit_expense/${expense.id}`}>
@@ -182,6 +168,167 @@ const Show_All_Expenses = () => {
                             ))}
                         </tbody>
                     </table>
+                </div>
+                <div className='max-w-full overflow-x-auto'>
+                    {selectedExpenses && (
+                        <Model
+                            isOpen={isModalOpen}
+                            onRequestClose={closeModal}
+                            contentLabel="Expenses Details"
+                            className="modal"
+                            overlayClassName="overlay"
+                        >
+                            <div className='modelpopupbuttoncontainer'>
+                                <NavLink to={`/expenses/edit_expense/${selectedExpenses.id}`}>
+                                    <button
+                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
+                                        onClick={closeModal}
+                                        aria-label='edit'
+                                    >
+                                        Edit
+                                    </button>
+                                </NavLink>
+                                <button
+                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 mr-2"
+                                    onClick={closeModal}
+                                    aria-label='close'
+                                >
+                                    Close
+                                </button>
+                            </div>
+                            <div className='modelpopupscrollcountainer'>
+                                <div className='mpdelpopupcontentcontainer'>
+                                    <div className='modelpopupleft'>
+                                        <h1>
+                                            <span style={{ color: 'rgb(112,48,160)' }}>Description</span>
+                                        </h1>
+                                        <p>
+                                            {
+                                                selectedExpenses.description ? (
+                                                    selectedExpenses.description
+                                                ) : (
+                                                    <span>No Description available</span>
+                                                )}
+                                        </p>
+                                    </div>
+                                    <div className='modelpopupright'>
+                                        <table className='w-full'>
+                                            <tbody>
+                                            <tr>
+                                                    <td><strong>amount</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedExpenses.amount ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedExpenses.amount)}`}>
+                                                                    {selectedExpenses.amount}
+                                                                </p>
+                                                            ) : (
+                                                                <span>False</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Status</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedExpenses.status_done ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedExpenses.status_done)}`}>
+                                                                    True
+                                                                </p>
+                                                            ) : (
+                                                                <span>False</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Tags</strong></td>
+                                                    <td>
+                                                        {
+                                                            selectedExpenses.tags && selectedExpenses.tags.length > 0 ? (
+                                                                <ul>
+                                                                    {selectedExpenses.tags.map((tag, index) => (
+                                                                        <li key={index} className='inline-block mr-2 bg-grey-200 rounded-full px-2 py-1 text-sm'>
+                                                                            <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(tag)}`}>
+                                                                                {tag}
+                                                                            </p>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            ) : (
+                                                                <span>No tag Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>split_amount</strong></td>
+                                                    <td>
+                                                        {
+                                                            selectedExpenses.split_amount && selectedExpenses.split_amount.length > 0 ? (
+                                                                <ul>
+                                                                    {selectedExpenses.split_amount.map((tag, index) => (
+                                                                        <li key={index} className='inline-block mr-2 bg-grey-200 rounded-full px-2 py-1 text-sm'>
+                                                                            <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(tag)}`}>
+                                                                                {tag}
+                                                                            </p>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            ) : (
+                                                                <span>No tag Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>amount given</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedExpenses.amount_given ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedExpenses.amount_given)}`}>
+                                                                    True
+                                                                </p>
+                                                            ) : (
+                                                                <span>False</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>created at</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedExpenses.created_at && selectedExpenses.created_at.length > 0 ? (
+                                                                <span>{convertToAmPm(selectedExpenses.created_at)}</span>
+
+                                                            ) : (
+                                                                <span>No created at Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>last modified</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedExpenses.last_modified && selectedExpenses.last_modified.length > 0 ? (
+                                                                <span>{convertToAmPm(selectedExpenses.last_modified)}</span>
+
+                                                            ) : (
+                                                                <span>No last modified Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </Model>
+                    )}
                 </div>
             </div>
         </>
