@@ -19,6 +19,22 @@ const Show_All_Notes = () => {
     const getToken = () => {
         return localStorage.getItem('token');
     }
+    const convertToAmPm = (dateString) => {
+        const date = new Date(dateString);
+
+        // Format the date to 'MM/DD/YYYY, hh:mm:ss AM/PM' format
+        const formattedDate = date.toLocaleString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true, // This ensures AM/PM format
+        });
+
+        return formattedDate;
+    };
     const changethebackgrounofthing = (thing) => {
         switch (thing) {
             case "Closed":
@@ -33,6 +49,8 @@ const Show_All_Notes = () => {
                 return 'bg-danger text-danger';
             case "3":
                 return 'bg-warning text-warning';
+            case "Low":
+                return 'bg-secondary text-secondary';
             default:
                 return 'bg-info text-info';
         }
@@ -245,6 +263,59 @@ const Show_All_Notes = () => {
                                                                 </ul>
                                                             ) : (
                                                                 <span>No status Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>priority</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedNote.priority && selectedNote.priority.length > 0 ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedNote.priority)}`}>
+                                                                    {selectedNote.priority}
+                                                                </p>
+                                                            ) : (
+                                                                <span>No priority Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>folder</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedNote.folder && selectedNote.folder.length > 0 ? (
+                                                                <span>{selectedNote.folder}</span>
+
+                                                            ) : (
+                                                                <span>No folder Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>created at</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedNote.created_at && selectedNote.created_at.length > 0 ? (
+                                                                <span>{convertToAmPm(selectedNote.created_at)}</span>
+
+                                                            ) : (
+                                                                <span>No created at Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>last modified</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedNote.last_modified && selectedNote.last_modified.length > 0 ? (
+                                                                <span>{convertToAmPm(selectedNote.last_modified)}</span>
+
+                                                            ) : (
+                                                                <span>No last modified Available</span>
                                                             )
                                                         }
                                                     </td>
