@@ -27,6 +27,9 @@ import All_Stocks_Names from './Stocks/Historical_Data/All_Stocks_Names';
 //Buy Stocks
 import Buy_Stock from './Stocks/Buy_Stock/Buy_Stock';
 //###############################################################################
+//user Stocks
+import Current_User_Stocks from './Stocks/User_Stocks/Current_User_Stock'
+//###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -217,6 +220,17 @@ function App() {
           }
         />
         {/*Buy Stocks ends*/}
+        {/*User Stocks start*/}
+        <Route
+          path= "/stocks/user_stocks/current"
+          element={
+            <>
+              <PageTitle title="Current stock of user Danisherror app" />
+              <Current_User_Stocks />
+            </>
+          }
+        />
+        {/*User Stocks ends*/}
         <Route
           path="/calendar"
           element={
