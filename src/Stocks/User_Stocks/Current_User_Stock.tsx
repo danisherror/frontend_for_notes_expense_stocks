@@ -142,13 +142,22 @@ const Show_All_User_stocks: React.FC = () => {
                             overlayClassName="overlay"
                         >
                             <div className='modelpopupbuttoncontainer'>
-                                <NavLink to={`/notes/edit_note/${selectedStockData.id}`}>
+                                <NavLink to={`/stocks/show_buy_stocks/${selectedStockData.id}`}>
                                     <button
                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
                                         onClick={closeModal}
                                         aria-label='edit'
                                     >
-                                        Edit
+                                        Buy Orders
+                                    </button>
+                                </NavLink>
+                                <NavLink to={`/stocks/edit_buy_stock/${selectedStockData.id}`}>
+                                    <button
+                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
+                                        onClick={closeModal}
+                                        aria-label='edit'
+                                    >
+                                        Sell Orders
                                     </button>
                                 </NavLink>
                                 <button
