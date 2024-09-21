@@ -27,6 +27,7 @@ import All_Stocks_Names from './Stocks/Historical_Data/All_Stocks_Names';
 //Buy Stocks
 import Buy_Stock from './Stocks/Buy_Stock/Buy_Stock';
 import Show_All_Buy_Orders from './Stocks/Buy_Stock/Show_All_Buy_Orders';
+import Edit_Buy_Stock from './Stocks/Buy_Stock/Edit_Buy_Stock';
 //###############################################################################
 //user Stocks
 import Current_User_Stocks from './Stocks/User_Stocks/Current_User_Stock'
@@ -226,6 +227,15 @@ function App() {
             <>
               <PageTitle title="Show Buy orders Danisherror app" />
               <Show_All_Buy_Orders />
+            </>
+          }
+        />
+        <Route
+          path= "/stocks/edit_buy_stock/:symbol_id"
+          element={
+            <>
+              <PageTitle title="Edit Buy orders Danisherror app" />
+              <Edit_Buy_Stock />
             </>
           }
         />
