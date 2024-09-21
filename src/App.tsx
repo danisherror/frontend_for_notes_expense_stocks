@@ -24,6 +24,9 @@ import Last_Week_Historical_data from './Stocks/Historical_Data/Last_Week_Histor
 import Last_Day_Historical_data from './Stocks/Historical_Data/Last_Day_Historical_Data';
 import All_Stocks_Names from './Stocks/Historical_Data/All_Stocks_Names';
 //###############################################################################
+//Buy Stocks
+import Buy_Stock from './Stocks/Buy_Stock/Buy_Stock';
+//###############################################################################
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -203,6 +206,17 @@ function App() {
           }
         />
         {/*stock data of a particular stock start*/}
+        {/*Buy Stocks start*/}
+        <Route
+          path= "/stocks/buy_stock/:symbol_id"
+          element={
+            <>
+              <PageTitle title="Buy stock Danisherror app" />
+              <Buy_Stock />
+            </>
+          }
+        />
+        {/*Buy Stocks ends*/}
         <Route
           path="/calendar"
           element={
