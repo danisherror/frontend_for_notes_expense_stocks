@@ -5,6 +5,8 @@ import Model from 'react-modal'
 Model.setAppElement("#root");
 const Show_All_Buy_Orders = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
     const [buy_orders, setBuyOrders] = useState([]);
     const { symbol_id } = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,21 +61,27 @@ const Show_All_Buy_Orders = () => {
     const token = getToken();
 
     const getdata = async () => {
+        try {
+            const res = await fetch(`http://127.0.0.1:8000/api/buy_stocks/`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
 
-        const res = await fetch(`http://127.0.0.1:8000/api/buy_stocks/`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+            const data = await res.json();
+            if (res.status === 200) {
+                setBuyOrders(data)
             }
-        });
-
-        const data = await res.json();
-        if (res.status === 200) {
-            setBuyOrders(data)
-        }
-        else {
-            console.error("404 Error: Resource not found");
+            else {
+                setError("404 Error: Resource not found");
+            }
+        } catch (err) {
+            setError("An error occurred while fetching data");
+            alert(err);
+        } finally {
+            setLoading(false);
         }
     }
     const deleteBuyOrder = async (id) => {
@@ -100,6 +108,13 @@ const Show_All_Buy_Orders = () => {
     useEffect(() => {
         getdata();
     }, [])
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
 
 
     return (
@@ -177,8 +192,8 @@ const Show_All_Buy_Orders = () => {
                             className="modal"
                             overlayClassName="overlay"
                         >
-                           <div className='modelpopupbuttoncontainer'>
-                                <NavLink to={`/stocks/edit_buy_stock/${selectedBuyOrder.symbol}`}>
+                            <div className='modelpopupbuttoncontainer'>
+                                <NavLink to={`/stocks/edit_buy_stock/${selectedBuyOrder.id}`}>
                                     <button
                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
                                         onClick={closeModal}
