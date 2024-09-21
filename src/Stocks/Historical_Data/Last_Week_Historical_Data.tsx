@@ -119,6 +119,23 @@ const Last_Week_Historical_data: React.FC = () => {
                         </NavLink>
                     </div>
                 </div>
+                <div className="flex w-full max-w-55 justify-end">
+                    <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
+                        <NavLink to={`/stocks/buy_stock/${symbol_id}`}>
+                            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium bg-success text-success`}>
+                                Buy
+                            </p>
+                            </button>
+                        </NavLink>
+                        <NavLink to={`/stocks/sell_stock/${symbol_id}`}>
+                            <button className="rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
+                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium bg-danger text-danger`}>
+                                    Sell
+                                </p>
+                            </button>
+                        </NavLink>
+                    </div>
+                </div>
             </div>
             <div>
                 <div id="Last_Week_Historical_data" className="-ml-5">
