@@ -57,9 +57,6 @@ const Show_All_User_stocks: React.FC = () => {
                 return 'bg-info text-info';
         }
     }
-    const calculate_net_profit=(buyed_price,quantity)=>{
-        return (currentprice-buyed_price)/quantity
-    }
     const token = getToken();
 
     const getdata = async () => {
@@ -73,7 +70,6 @@ const Show_All_User_stocks: React.FC = () => {
             });
 
             const data = await res.json();
-            console.log(data);
             if (res.status === 200) {
                 setStock_data(data)
             }
@@ -82,7 +78,7 @@ const Show_All_User_stocks: React.FC = () => {
             }
         } catch (err) {
             setError("An error occurred while fetching data");
-            console.error(err);
+            alert(err);
         } finally {
             setLoading(false);
         }
@@ -206,20 +202,6 @@ const Show_All_User_stocks: React.FC = () => {
                                                                 </p>
                                                             ) : (
                                                                 <span>No created_at Available</span>
-                                                            )
-                                                        }
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>net_profit</strong></td>
-                                                    <td className='py-5'>
-                                                        {
-                                                            selectedStockData.net_profit ? (
-                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedStockData.net_profit)}`}>
-                                                                    {calculate_net_profit(selectedStockData.net_profit,selectedStockData.quantity)}
-                                                                </p>
-                                                            ) : (
-                                                                <span>No net_profit Available</span>
                                                             )
                                                         }
                                                     </td>
