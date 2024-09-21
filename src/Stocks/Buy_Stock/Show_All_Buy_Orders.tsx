@@ -60,7 +60,7 @@ const Show_All_Buy_Orders = () => {
 
     const getdata = async () => {
 
-        const res = await fetch(`http://127.0.0.1:8000/api/buy_stocks`, {
+        const res = await fetch(`http://127.0.0.1:8000/api/buy_stocks/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -139,7 +139,7 @@ const Show_All_Buy_Orders = () => {
                                     </td>
                                     <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
-                                            {buyorder.timestamp}
+                                            {convertToAmPm(buyorder.timestamp)}
                                         </h5>
                                     </td>
 
@@ -177,16 +177,8 @@ const Show_All_Buy_Orders = () => {
                             className="modal"
                             overlayClassName="overlay"
                         >
-                            {/* <h2>
-                                {
-                                    selectedBuyOrder.title && selectedBuyOrder.title.length > 0 ? (
-                                        selectedBuyOrder.title
-                                    ) : (
-                                        <span>No Title available</span>
-                                    )}
-                            </h2>
-                            <div className='modelpopupbuttoncontainer'>
-                                <NavLink to={`/notes/edit_note/${selectedBuyOrder.id}`}>
+                           <div className='modelpopupbuttoncontainer'>
+                                <NavLink to={`/stocks/edit_buy_stock/${selectedBuyOrder.symbol}`}>
                                     <button
                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
                                         onClick={closeModal}
@@ -205,105 +197,109 @@ const Show_All_Buy_Orders = () => {
                             </div>
                             <div className='modelpopupscrollcountainer'>
                                 <div className='mpdelpopupcontentcontainer'>
-                                    <div className='modelpopupleft'>
-                                        <h1>
-                                            <span style={{ color: 'rgb(112,48,160)' }}>Description</span>
-                                        </h1>
-                                        <p>
-                                            {
-                                                selectedBuyOrder.content ? (
-                                                    selectedBuyOrder.content
-                                                ) : (
-                                                    <span>No Description available</span>
-                                                )}
-                                        </p>
-                                    </div>
-                                    <div className='modelpopupright'>
+                                    <div className='modelpopupleftequal'>
                                         <table className='w-full'>
                                             <tbody>
                                                 <tr>
-                                                    <td><strong>Status</strong></td>
+                                                    <td><strong>Name</strong></td>
                                                     <td className='py-5'>
                                                         {
-                                                            selectedBuyOrder.status && selectedBuyOrder.status.length > 0 ? (
-                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.status)}`}>
-                                                                    {selectedBuyOrder.status}
+                                                            selectedBuyOrder.name && selectedBuyOrder.name.length > 0 ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.name)}`}>
+                                                                    {selectedBuyOrder.name}
                                                                 </p>
                                                             ) : (
-                                                                <span>No status Available</span>
+                                                                <span>No name Available</span>
                                                             )
                                                         }
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Tags</strong></td>
-                                                    <td>
-                                                        {
-                                                            selectedBuyOrder.status && selectedBuyOrder.status.length > 0 ? (
-                                                                <ul>
-                                                                    {selectedBuyOrder.tags.map((tag, index) => (
-                                                                        <li key={index} className='inline-block mr-2 bg-grey-200 rounded-full px-2 py-1 text-sm'>
-                                                                            <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(tag)}`}>
-                                                                                {tag}
-                                                                            </p>
-                                                                        </li>
-                                                                    ))}
-                                                                </ul>
-                                                            ) : (
-                                                                <span>No status Available</span>
-                                                            )
-                                                        }
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><strong>priority</strong></td>
+                                                    <td><strong>price_per_unit</strong></td>
                                                     <td className='py-5'>
                                                         {
-                                                            selectedBuyOrder.priority && selectedBuyOrder.priority.length > 0 ? (
-                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.priority)}`}>
-                                                                    {selectedBuyOrder.priority}
+                                                            selectedBuyOrder.price_per_unit > 0 ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.price_per_unit)}`}>
+                                                                    {selectedBuyOrder.price_per_unit}
                                                                 </p>
                                                             ) : (
-                                                                <span>No priority Available</span>
+                                                                <span>No price_per_unit Available</span>
                                                             )
                                                         }
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>folder</strong></td>
+                                                    <td><strong>created_at</strong></td>
                                                     <td className='py-5'>
                                                         {
-                                                            selectedBuyOrder.folder && selectedBuyOrder.folder.length > 0 ? (
-                                                                <span>{selectedBuyOrder.folder}</span>
-
+                                                            selectedBuyOrder.created_at ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.created_at)}`}>
+                                                                    {convertToAmPm(selectedBuyOrder.created_at)}
+                                                                </p>
                                                             ) : (
-                                                                <span>No folder Available</span>
+                                                                <span>No created_at Available</span>
                                                             )
                                                         }
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>created at</strong></td>
+                                                    <td><strong>timestamp</strong></td>
                                                     <td className='py-5'>
                                                         {
-                                                            selectedBuyOrder.created_at && selectedBuyOrder.created_at.length > 0 ? (
-                                                                <span>{convertToAmPm(selectedBuyOrder.created_at)}</span>
-
+                                                            selectedBuyOrder.timestamp ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.timestamp)}`}>
+                                                                    {convertToAmPm(selectedBuyOrder.timestamp)}
+                                                                </p>
                                                             ) : (
-                                                                <span>No created at Available</span>
+                                                                <span>No timestamp Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div className='modelpopuprightequal'>
+                                        <table className='w-full'>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Symbol</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedBuyOrder.symbol && selectedBuyOrder.symbol.length > 0 ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.symbol)}`}>
+                                                                    {selectedBuyOrder.symbol}
+                                                                </p>
+                                                            ) : (
+                                                                <span>No symbol Available</span>
                                                             )
                                                         }
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>last modified</strong></td>
+                                                    <td><strong>quantity</strong></td>
                                                     <td className='py-5'>
                                                         {
-                                                            selectedBuyOrder.last_modified && selectedBuyOrder.last_modified.length > 0 ? (
-                                                                <span>{convertToAmPm(selectedBuyOrder.last_modified)}</span>
-
+                                                            selectedBuyOrder.quantity ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.quantity)}`}>
+                                                                    {selectedBuyOrder.quantity}
+                                                                </p>
                                                             ) : (
-                                                                <span>No last modified Available</span>
+                                                                <span>No quantity Available</span>
+                                                            )
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>last_updated</strong></td>
+                                                    <td className='py-5'>
+                                                        {
+                                                            selectedBuyOrder.last_updated ? (
+                                                                <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedBuyOrder.last_updated)}`}>
+                                                                    {convertToAmPm(selectedBuyOrder.last_updated)}
+                                                                </p>
+                                                            ) : (
+                                                                <span>No last_updated Available</span>
                                                             )
                                                         }
                                                     </td>
@@ -312,8 +308,7 @@ const Show_All_Buy_Orders = () => {
                                         </table>
                                     </div>
                                 </div>
-                            </div> */}
-                            h1
+                            </div>
                         </Model>
                     )}
                 </div>

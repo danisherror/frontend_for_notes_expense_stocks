@@ -142,7 +142,7 @@ const Show_All_User_stocks: React.FC = () => {
                             overlayClassName="overlay"
                         >
                             <div className='modelpopupbuttoncontainer'>
-                                <NavLink to={`/stocks/show_buy_stocks/${selectedStockData.id}`}>
+                                <NavLink to={`/stocks/show_buy_stocks/${selectedStockData.symbol}`}>
                                     <button
                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
                                         onClick={closeModal}
@@ -151,7 +151,7 @@ const Show_All_User_stocks: React.FC = () => {
                                         Buy Orders
                                     </button>
                                 </NavLink>
-                                <NavLink to={`/stocks/edit_buy_stock/${selectedStockData.id}`}>
+                                <NavLink to={`/stocks/edit_buy_stock/${selectedStockData.symbol}`}>
                                     <button
                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
                                         onClick={closeModal}
