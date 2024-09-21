@@ -207,7 +207,7 @@ const Show_All_User_stocks: React.FC = () => {
                                                         {
                                                             selectedStockData.created_at ? (
                                                                 <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedStockData.created_at)}`}>
-                                                                    {selectedStockData.created_at}
+                                                                    {convertToAmPm(selectedStockData.created_at)}
                                                                 </p>
                                                             ) : (
                                                                 <span>No created_at Available</span>
@@ -255,7 +255,7 @@ const Show_All_User_stocks: React.FC = () => {
                                                         {
                                                             selectedStockData.last_updated ? (
                                                                 <p className={`inline-flex rounded-full rounded bg-opacity-10 py-1 px-3 text-sm font-medium ${changethebackgrounofthing(selectedStockData.last_updated)}`}>
-                                                                    {selectedStockData.last_updated}
+                                                                    {convertToAmPm(selectedStockData.last_updated)}
                                                                 </p>
                                                             ) : (
                                                                 <span>No last_updated Available</span>
